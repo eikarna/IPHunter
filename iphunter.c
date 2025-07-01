@@ -62,7 +62,7 @@ void toggle_airplane_mode(int on) {
 }
 
 int get_active_interface_and_ip(char *iface, size_t iface_len, char *ip, size_t ip_len) {
-    FILE *fp = popen("ip -4 route ls 2>/dev/null", "r");
+    FILE *fp = popen("ip -4 route ls 2>/dev/null | grep -v \"tun[0-9]\"", "r");
     if (!fp) {
         log_message("[-] popen failed: %s\n", strerror(errno));
         return -1;
